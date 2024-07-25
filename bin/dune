@@ -1,0 +1,4 @@
+(executable
+ (public_name nb_chat)
+ (name main)
+ (libraries nb_chatlib getopt))
