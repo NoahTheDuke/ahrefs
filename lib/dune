@@ -1,2 +1,3 @@
 (library
- (name nb_chatlib))
+ (name nb_chatlib)
+ (libraries getopt))
