@@ -12,4 +12,4 @@
  (name nb_chat)
  (synopsis "1v1 socket chat app")
  (description "A longer description")
- (depends ocaml dune getopt))
+ (depends ocaml dune getopt lwt))

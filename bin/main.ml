@@ -1,7 +1,13 @@
 module Cli = Nb_chatlib.Cli
+open Nb_chatlib.User
+module Server = Nb_chatlib.Server
 
 let main () =
-  (let options = (Cli.parse Sys.argv) in
-    (Cli.OptionBag.pp options))
+  let options = Cli.parse Sys.argv in
+  Cli.OptionBag.pp options;
+  let user = User.create options in
+  match options.mode with
+  | `Client -> Server.create_server user
+  | `Server -> Server.create_server user
 
-let () = (main ())
+let () = Lwt_main.run (main ())

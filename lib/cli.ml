@@ -5,7 +5,7 @@ module OptionBag = struct
     mode : [ `Client | `Server ];
   }
 
-  let create () : t = { username = None; port = Some 8080; mode = `Server }
+  let create () : t = { username = None; port = Some 5001; mode = `Server }
 
   let to_string { username; port; mode } =
     Printf.sprintf "{username: %s; port: %s; mode: [%s]}"
@@ -31,6 +31,14 @@ let specs (opts : OptionBag.t ref) =
           | Some i -> opts := { !opts with port = Some i }) );
   ]
 
+let parse_mode m =
+  match String.lowercase_ascii m with
+  | "server" -> `Server
+  | "client" -> `Client
+  | s ->
+      Printf.printf "Incorrect mode given: %s. Defaulting to server" s;
+      `Server
+
 (** [parse input] parses an array of strings into a OptionBag*)
 let parse input : OptionBag.t =
   let options = ref (OptionBag.create ()) in
@@ -43,15 +51,7 @@ let parse input : OptionBag.t =
   in
   match !modes with
   | [] -> !options
-  | [ m ] ->
-      {
-        !options with
-        mode =
-          (match String.lowercase_ascii m with
-          | "server" -> `Server
-          | "client" -> `Client
-          | _ -> `Server);
-      }
+  | [ m ] -> { !options with mode = parse_mode m }
   | m ->
       let mode_str = String.concat "; " m in
       let msg = Printf.sprintf "Too many modes: [%s]" mode_str in

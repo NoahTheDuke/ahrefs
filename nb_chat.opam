@@ -7,6 +7,7 @@ license: "LICENSE"
 depends: [
   "ocaml"
   "dune" {>= "3.16"}
+  "getopt"
   "lwt"
   "odoc" {with-doc}
 ]
