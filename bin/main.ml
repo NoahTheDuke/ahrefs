@@ -7,7 +7,7 @@ let main () =
   Cli.OptionBag.pp options;
   let user = User.create options in
   match options.mode with
-  | `Client -> Server.create_server user
+  | `Client -> Server.create_client user
   | `Server -> Server.create_server user
 
 let () = Lwt_main.run (main ())

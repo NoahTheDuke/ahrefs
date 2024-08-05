@@ -8,6 +8,7 @@ module User = struct
     port : int;
     mode : [ `Client | `Server ];
     socket : Lwt_unix.file_descr;
+    mutable ping : float;
   }
 
   let create (bag : OptionBag.t) : t =
@@ -16,5 +17,6 @@ module User = struct
       port = Option.get bag.port;
       mode = bag.mode;
       socket = create_socket ();
+      ping = 0.0;
     }
 end
