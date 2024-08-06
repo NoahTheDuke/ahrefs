@@ -4,7 +4,6 @@ module Server = Nb_chatlib.Server
 
 let main () =
   let options = Cli.parse Sys.argv in
-  Cli.OptionBag.pp options;
   let user = User.create options in
   match options.mode with
   | `Client -> Server.create_client user
